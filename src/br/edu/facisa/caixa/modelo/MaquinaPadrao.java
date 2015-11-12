@@ -27,6 +27,11 @@ public class MaquinaPadrao extends MaquinaAdapter {
 	public void teclaNum01Digitada() {
 		if (this.estado.equals(ESTADO_INICIAL)) {
 			solicitaRealizaDeposito();
+		}else if(this.estado.equals(ESCOLHENDO_BANCO)){
+			MaquinaDeEstadosEvent e = new MaquinaDeEstadosEvent();
+			e.setTrocaMaquinaDeEstados("Banco do Brasil");
+			notificaMudanca(e);
+		
 		}
 	}
 
@@ -45,6 +50,7 @@ public class MaquinaPadrao extends MaquinaAdapter {
 			MaquinaDeEstadosEvent e = new MaquinaDeEstadosEvent();
 			e.setTrocaMaquinaDeEstados("Santander");
 			notificaMudanca(e);
+		
 		}
 	}
 

@@ -39,14 +39,17 @@ public class CaixaDeBanco implements MaquinaDeEstadosListener {
 				this.maquinaAtual.adicionaMaquinaDeEstadosListener(this);
 				this.maquinaAtual.inicia();
 			case "Banco do Brasil" :
-				
+				this.maquinaAtual.para();
+				this.maquinaAtual = new MaquinaBancoBrasil();
+				this.maquinaAtual.adicionaMaquinaDeEstadosListener(this);
+				this.maquinaAtual.inicia();				
 			}
 		}
 		this.exibeTeclado();
 	}
 
 	private void exibeTeclado() {
-		System.out.println(" - DIGITE E PRESSIONE ENTER: 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, CONFIRMA, CANCELA, CORRIGE");
+		System.out.println(" - DIGITE E PRESSIONE ENTER: 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, A, B, C, D, E, F, G, H, CONFIRMA, CANCELA, CORRIGE");
 		Scanner sc = new Scanner(System.in);
 		String resposta = sc.nextLine();
 		processaInteracao(resposta);
@@ -75,6 +78,8 @@ public class CaixaDeBanco implements MaquinaDeEstadosListener {
 			this.maquinaAtual.teclaNum00Digitada();
 		} else if (resposta.equals("CONFIRMA")) {
 			this.maquinaAtual.teclaConfirmaDigitada();
+		}else if(resposta.equals("A")){
+			this.maquinaAtual.teclaEsquerda01Digitada();
 		}
 	}
 }

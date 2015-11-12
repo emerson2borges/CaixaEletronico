@@ -7,7 +7,7 @@ public class MaquinaDeEstadosFactory {
 	}
 	
 	public static IMaquinaDeEstados criaMaquinaBancoDoBrasil() {
-		return null;
+		return new MaquinaBancoBrasil();
 	}
 
 	public static IMaquinaDeEstados criaMaquinaPadraoCaixa() {
