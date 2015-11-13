@@ -134,7 +134,8 @@ public class MaquinaBancoBrasil extends MaquinaAdapter {
 			this.estado = DIGITANDO_OPCAO;
 			MaquinaDeEstadosEvent evento = new MaquinaDeEstadosEvent();
 			evento.setNovaTela(" - Escolha uma OPCAO\n"
-					+ "A) EXTRATO\n");
+					+ "A) Extrato\n"
+					+ "B) Saldo\n");
 			opcao=1;
 			notificaMudanca(evento);
 		}else if(this.estado == DIGITANDO_SENHA){
