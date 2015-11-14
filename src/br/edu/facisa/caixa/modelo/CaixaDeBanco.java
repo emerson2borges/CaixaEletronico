@@ -80,6 +80,10 @@ public class CaixaDeBanco implements MaquinaDeEstadosListener {
 			this.maquinaAtual.teclaConfirmaDigitada();
 		}else if(resposta.equals("A")){
 			this.maquinaAtual.teclaEsquerda01Digitada();
+		}else if(resposta.equals("B")){
+			this.maquinaAtual.teclaEsquerda02Digitada();
+		}else if(resposta.equals("CANCELA")){
+			this.maquinaAtual.teclaCancelarDigitada();
 		}
 	}
 }

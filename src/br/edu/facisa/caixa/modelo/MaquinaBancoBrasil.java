@@ -28,9 +28,9 @@ public class MaquinaBancoBrasil extends MaquinaAdapter {
 
 	public void inicia() {
 		this.estado = DIGITANDO_CONTA;
-		MaquinaDeEstadosEvent eventoBB = new MaquinaDeEstadosEvent();
-		eventoBB.setNovaTela("BEM-VINDO AO BANCO DO BRASIL\n - Informe a sua conta:");
-		notificaMudanca(eventoBB);
+		MaquinaDeEstadosEvent evento = new MaquinaDeEstadosEvent();
+		evento.setNovaTela("BEM-VINDO AO BANCO DO BRASIL\n - Informe a sua conta:");
+		notificaMudanca(evento);
 		// TODO Auto-generated method stub
 
 	}
@@ -62,8 +62,6 @@ public class MaquinaBancoBrasil extends MaquinaAdapter {
 			processaConta(1);
 		} else if (this.estado == DIGITANDO_SENHA) {
 			processaSenha(1);
-		}else if(this.estado == DIGITANDO_OPCAO){
-			
 		}
 	}
 
@@ -139,21 +137,35 @@ public class MaquinaBancoBrasil extends MaquinaAdapter {
 			opcao=1;
 			notificaMudanca(evento);
 		}else if(this.estado == DIGITANDO_SENHA){
-			if(opcao==1){
-				
-			}
-			
+			this.estado = VENDO_EXTRATO;
+			MaquinaDeEstadosEvent evento = new MaquinaDeEstadosEvent();
+			evento.setNovaTela("EXTRATO\n"
+					+ "Saldo em 01/11: R$1000,00\n"
+					+ "05/11: Saque: R$500,00\n"
+					+ "09/11: Deposito: R$200,00\n"
+					+ "Saldo Atual: R$700,00");
+			notificaMudanca(evento);
 		}
-
+		
 	}
 
 	public void teclaCorrigeDigitada() {
 		// TODO Auto-generated method stub
+		
 
 	}
 
 	public void teclaCancelarDigitada() {
-		// TODO Auto-generated method stub
+		if(this.estado == VENDO_EXTRATO){
+			this.estado = DIGITANDO_OPCAO;
+			MaquinaDeEstadosEvent evento = new MaquinaDeEstadosEvent();
+			evento.setNovaTela(" - Escolha uma OPCAO\n"
+					+ "A) Extrato\n"
+					+ "B) Saldo\n");
+			this.senhaDigitada=0;
+			this.asteriscos="";
+			notificaMudanca(evento);
+		}
 
 	}
 
@@ -163,7 +175,7 @@ public class MaquinaBancoBrasil extends MaquinaAdapter {
 		MaquinaDeEstadosEvent evento = new MaquinaDeEstadosEvent();
 		evento.setNovaTela(" - Digite a senha ou digite CONFIRMA\n");
 		notificaMudanca(evento);
-		
+				
 	}
 
 	public void teclaEsquerda02Digitada() {
