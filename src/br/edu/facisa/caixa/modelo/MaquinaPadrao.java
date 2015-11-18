@@ -58,6 +58,7 @@ public class MaquinaPadrao extends MaquinaAdapter {
 		if (this.estado == ESCOLHENDO_BANCO) {
 			MaquinaDeEstadosEvent e = new MaquinaDeEstadosEvent();
 			e.setTrocaMaquinaDeEstados("Caixa Economica");
+			notificaMudanca(e);
 		}	
 	}
 

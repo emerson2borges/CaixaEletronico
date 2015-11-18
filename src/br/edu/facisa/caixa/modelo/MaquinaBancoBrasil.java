@@ -4,12 +4,12 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class MaquinaBancoBrasil extends MaquinaAdapter {
-	
+
 	private int contaDigitada;
 	private int senhaDigitada;
 	private String asteriscos = "";
-	private int opcao=0;
-	
+	private int opcao = 0;
+
 	private List<MaquinaDeEstadosListener> listeners = new LinkedList<MaquinaDeEstadosListener>();
 
 	public boolean adicionaMaquinaDeEstadosListener(MaquinaDeEstadosListener listener) {
@@ -21,7 +21,7 @@ public class MaquinaBancoBrasil extends MaquinaAdapter {
 	}
 
 	public void notificaMudanca(MaquinaDeEstadosEvent evento) {
-		for(MaquinaDeEstadosListener listener : listeners){
+		for (MaquinaDeEstadosListener listener : listeners) {
 			listener.houveMudanca(evento);
 		}
 	}
@@ -39,7 +39,7 @@ public class MaquinaBancoBrasil extends MaquinaAdapter {
 		// TODO Auto-generated method stub
 
 	}
-	
+
 	private void processaConta(int i) {
 		this.contaDigitada *= 10;
 		this.contaDigitada += i;
@@ -47,7 +47,7 @@ public class MaquinaBancoBrasil extends MaquinaAdapter {
 		evento.setNovaTela(" - Continue a digitar a conta ou digite CONFIRMA\n - Conta atual : " + this.contaDigitada);
 		notificaMudanca(evento);
 	}
-	
+
 	private void processaSenha(int i) {
 		this.senhaDigitada *= 10;
 		this.senhaDigitada += i;
@@ -68,6 +68,8 @@ public class MaquinaBancoBrasil extends MaquinaAdapter {
 	public void teclaNum02Digitada() {
 		if (this.estado == DIGITANDO_CONTA) {
 			processaConta(2);
+		} else if (this.estado == DIGITANDO_SENHA) {
+			processaSenha(2);
 		}
 
 	}
@@ -75,6 +77,8 @@ public class MaquinaBancoBrasil extends MaquinaAdapter {
 	public void teclaNum03Digitada() {
 		if (this.estado == DIGITANDO_CONTA) {
 			processaConta(3);
+		} else if (this.estado == DIGITANDO_SENHA) {
+			processaSenha(3);
 		}
 
 	}
@@ -82,6 +86,8 @@ public class MaquinaBancoBrasil extends MaquinaAdapter {
 	public void teclaNum04Digitada() {
 		if (this.estado == DIGITANDO_CONTA) {
 			processaConta(4);
+		} else if (this.estado == DIGITANDO_SENHA) {
+			processaSenha(4);
 		}
 
 	}
@@ -89,6 +95,8 @@ public class MaquinaBancoBrasil extends MaquinaAdapter {
 	public void teclaNum05Digitada() {
 		if (this.estado == DIGITANDO_CONTA) {
 			processaConta(5);
+		} else if (this.estado == DIGITANDO_SENHA) {
+			processaSenha(5);
 		}
 
 	}
@@ -96,12 +104,16 @@ public class MaquinaBancoBrasil extends MaquinaAdapter {
 	public void teclaNum06Digitada() {
 		if (this.estado == DIGITANDO_CONTA) {
 			processaConta(6);
+		} else if (this.estado == DIGITANDO_SENHA) {
+			processaSenha(6);
 		}
 	}
 
 	public void teclaNum07Digitada() {
 		if (this.estado == DIGITANDO_CONTA) {
 			processaConta(7);
+		} else if (this.estado == DIGITANDO_SENHA) {
+			processaSenha(7);
 		}
 
 	}
@@ -109,6 +121,8 @@ public class MaquinaBancoBrasil extends MaquinaAdapter {
 	public void teclaNum08Digitada() {
 		if (this.estado == DIGITANDO_CONTA) {
 			processaConta(8);
+		} else if (this.estado == DIGITANDO_SENHA) {
+			processaSenha(8);
 		}
 
 	}
@@ -116,6 +130,8 @@ public class MaquinaBancoBrasil extends MaquinaAdapter {
 	public void teclaNum09Digitada() {
 		if (this.estado == DIGITANDO_CONTA) {
 			processaConta(9);
+		} else if (this.estado == DIGITANDO_SENHA) {
+			processaSenha(9);
 		}
 
 	}
@@ -123,6 +139,8 @@ public class MaquinaBancoBrasil extends MaquinaAdapter {
 	public void teclaNum00Digitada() {
 		if (this.estado == DIGITANDO_CONTA) {
 			processaConta(0);
+		} else if (this.estado == DIGITANDO_SENHA) {
+			processaSenha(0);
 		}
 
 	}
@@ -131,55 +149,62 @@ public class MaquinaBancoBrasil extends MaquinaAdapter {
 		if (this.estado == DIGITANDO_CONTA) {
 			this.estado = DIGITANDO_OPCAO;
 			MaquinaDeEstadosEvent evento = new MaquinaDeEstadosEvent();
-			evento.setNovaTela(" - Escolha uma OPCAO\n"
-					+ "A) Extrato\n"
-					+ "B) Saldo\n");
-			opcao=1;
+			evento.setNovaTela(" - Escolha uma OPCAO\n" + "A) Extrato\n" + "B) Saque\n");
+			opcao = 1;
 			notificaMudanca(evento);
-		}else if(this.estado == DIGITANDO_SENHA){
+		} else if (this.estado == DIGITANDO_SENHA && opcao == 1) {
 			this.estado = VENDO_EXTRATO;
 			MaquinaDeEstadosEvent evento = new MaquinaDeEstadosEvent();
 			evento.setNovaTela("EXTRATO\n"
-					+ "Saldo em 01/11: R$1000,00\n"
-					+ "05/11: Saque: R$500,00\n"
-					+ "09/11: Deposito: R$200,00\n"
-					+ "Saldo Atual: R$700,00");
+						+ "Saldo em 01/11: R$1000,00\n"
+						+ "05/11: Saque: R$500,00\n"
+						+ "09/11: Deposito: R$200,00\n"
+						+ "Saldo Atual: R$700,00");
+			notificaMudanca(evento);
+		} else if (this.estado == DIGITANDO_SENHA && opcao == 2) {
+			float meuSaldo = 1000;
+			this.estado = SACANDO;
+			MaquinaDeEstadosEvent evento = new MaquinaDeEstadosEvent();
+			evento.setNovaTela("SAQUE:\n"
+					+ "Seu saldo: " + meuSaldo
+					+ "\nDigite o valor a sacar: ");
+			opcao = 2;
 			notificaMudanca(evento);
 		}
-		
 	}
 
 	public void teclaCorrigeDigitada() {
 		// TODO Auto-generated method stub
-		
 
 	}
 
 	public void teclaCancelarDigitada() {
-		if(this.estado == VENDO_EXTRATO){
+		if (this.estado == VENDO_EXTRATO) {
 			this.estado = DIGITANDO_OPCAO;
 			MaquinaDeEstadosEvent evento = new MaquinaDeEstadosEvent();
-			evento.setNovaTela(" - Escolha uma OPCAO\n"
-					+ "A) Extrato\n"
-					+ "B) Saldo\n");
-			this.senhaDigitada=0;
-			this.asteriscos="";
+			evento.setNovaTela(" - Escolha uma OPCAO\n" + "A) Extrato\n" + "B) Saldo\n");
+			this.senhaDigitada = 0;
+			this.asteriscos = "";
 			notificaMudanca(evento);
 		}
 
 	}
 
 	public void teclaEsquerda01Digitada() {
-		opcao=1;
-		this.estado= DIGITANDO_SENHA;
+		opcao = 1;
+		this.estado = DIGITANDO_SENHA;
 		MaquinaDeEstadosEvent evento = new MaquinaDeEstadosEvent();
 		evento.setNovaTela(" - Digite a senha ou digite CONFIRMA\n");
 		notificaMudanca(evento);
-				
+
 	}
 
 	public void teclaEsquerda02Digitada() {
-		// TODO Auto-generated method stub
+		opcao = 2;
+		this.estado = DIGITANDO_SENHA;
+		MaquinaDeEstadosEvent evento = new MaquinaDeEstadosEvent();
+		evento.setNovaTela(" - Digite a senha ou digite CONFIRMA\n");
+		notificaMudanca(evento);
 
 	}
 

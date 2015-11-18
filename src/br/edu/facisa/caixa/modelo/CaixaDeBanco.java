@@ -42,7 +42,12 @@ public class CaixaDeBanco implements MaquinaDeEstadosListener {
 				this.maquinaAtual.para();
 				this.maquinaAtual = new MaquinaBancoBrasil();
 				this.maquinaAtual.adicionaMaquinaDeEstadosListener(this);
-				this.maquinaAtual.inicia();				
+				this.maquinaAtual.inicia();	
+			case "Caixa Economica":
+				this.maquinaAtual.para();
+				this.maquinaAtual = new MaquinaCaixaEconomica();
+				this.maquinaAtual.adicionaMaquinaDeEstadosListener(this);
+				this.maquinaAtual.inicia();	
 			}
 		}
 		this.exibeTeclado();

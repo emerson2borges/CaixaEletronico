@@ -20,6 +20,8 @@ public abstract class MaquinaAdapter implements IMaquinaDeEstados {
 	protected static final String VENDO_EXTRATO = "Vendo Extrato";
 	
 	protected static final String VENDO_SALDO = "Vendo Saldo";
+	
+	protected static final String SACANDO = "Sacando"; 
 
 
 	protected List<MaquinaDeEstadosListener> listeners = new LinkedList<MaquinaDeEstadosListener>();

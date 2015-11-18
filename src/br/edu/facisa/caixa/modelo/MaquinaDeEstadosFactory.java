@@ -14,4 +14,8 @@ public class MaquinaDeEstadosFactory {
 		return new MaquinaPadrao();
 	}
 	
+	public static IMaquinaDeEstados criaMaquinaCaixaEconomica(){
+		return new MaquinaCaixaEconomica();
+	}
+	
 }
