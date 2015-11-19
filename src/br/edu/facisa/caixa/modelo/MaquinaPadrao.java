@@ -55,106 +55,167 @@ public class MaquinaPadrao extends MaquinaAdapter {
 	}
 
 	public void teclaNum03Digitada() {
-		if (this.estado == ESCOLHENDO_BANCO) {
-			MaquinaDeEstadosEvent e = new MaquinaDeEstadosEvent();
-			e.setTrocaMaquinaDeEstados("Caixa Economica");
-			notificaMudanca(e);
+		if(this.estado == ESTADO_INICIAL){
+			MaquinaDeEstadosEvent evento = new MaquinaDeEstadosEvent();
+			evento.setNovaTela("- Opcao Invalida -");
+			notificaMudanca(evento);
+		}else if (this.estado == ESCOLHENDO_BANCO) {
+			MaquinaDeEstadosEvent evento = new MaquinaDeEstadosEvent();
+			evento.setTrocaMaquinaDeEstados("Caixa Economica");
+			notificaMudanca(evento);
 		}	
 	}
 
 	public void teclaNum04Digitada() {
-		// TODO Auto-generated method stub
-
+		if(this.estado == ESTADO_INICIAL){
+			MaquinaDeEstadosEvent evento = new MaquinaDeEstadosEvent();
+			evento.setNovaTela("- Opcao Invalida -");
+			notificaMudanca(evento);
+		}
 	}
 
 	public void teclaNum05Digitada() {
-		// TODO Auto-generated method stub
-
+		if(this.estado == ESTADO_INICIAL){
+			MaquinaDeEstadosEvent evento = new MaquinaDeEstadosEvent();
+			evento.setNovaTela("- Opcao Invalida -");
+			notificaMudanca(evento);
+		}
 	}
 
 	public void teclaNum06Digitada() {
-		// TODO Auto-generated method stub
-
+		if(this.estado == ESTADO_INICIAL){
+			MaquinaDeEstadosEvent evento = new MaquinaDeEstadosEvent();
+			evento.setNovaTela("- Opcao Invalida -");
+			notificaMudanca(evento);
+		}
 	}
 
 	public void teclaNum07Digitada() {
-		// TODO Auto-generated method stub
-
+		if(this.estado == ESTADO_INICIAL){
+			MaquinaDeEstadosEvent evento = new MaquinaDeEstadosEvent();
+			evento.setNovaTela("- Opcao Invalida -");
+			notificaMudanca(evento);
+		}
 	}
 
 	public void teclaNum08Digitada() {
-		// TODO Auto-generated method stub
-
+		if(this.estado == ESTADO_INICIAL){
+			MaquinaDeEstadosEvent evento = new MaquinaDeEstadosEvent();
+			evento.setNovaTela("- Opcao Invalida -");
+			notificaMudanca(evento);
+		}
 	}
 
 	public void teclaNum09Digitada() {
-		// TODO Auto-generated method stub
-
+		if(this.estado == ESTADO_INICIAL){
+			MaquinaDeEstadosEvent evento = new MaquinaDeEstadosEvent();
+			evento.setNovaTela("- Opcao Invalida -");
+			notificaMudanca(evento);
+		}
 	}
 
 	public void teclaNum00Digitada() {
-		// TODO Auto-generated method stub
-
+		if(this.estado == ESTADO_INICIAL){
+			MaquinaDeEstadosEvent evento = new MaquinaDeEstadosEvent();
+			evento.setNovaTela("- Opcao Invalida -");
+			notificaMudanca(evento);
+		}
 	}
 
 	public void teclaConfirmaDigitada() {
-		// TODO Auto-generated method stub
-
+		if(this.estado == ESTADO_INICIAL){
+			MaquinaDeEstadosEvent evento = new MaquinaDeEstadosEvent();
+			evento.setNovaTela("- Opcao Invalida -");
+			notificaMudanca(evento);
+		}
 	}
 
 	public void teclaCorrigeDigitada() {
-		// TODO Auto-generated method stub
-
+		if(this.estado == ESTADO_INICIAL){
+			MaquinaDeEstadosEvent evento = new MaquinaDeEstadosEvent();
+			evento.setNovaTela("- Opcao Invalida -");
+			notificaMudanca(evento);
+		}
 	}
 
 	public void teclaCancelarDigitada() {
-		// TODO Auto-generated method stub
-
+		if(this.estado == ESTADO_INICIAL){
+			MaquinaDeEstadosEvent evento = new MaquinaDeEstadosEvent();
+			evento.setNovaTela("- Opcao Invalida -");
+			notificaMudanca(evento);
+		}
 	}
 
 	public void teclaEsquerda01Digitada() {
-		// TODO Auto-generated method stub
-
+		if(this.estado == ESTADO_INICIAL){
+			MaquinaDeEstadosEvent evento = new MaquinaDeEstadosEvent();
+			evento.setNovaTela("- Opcao Invalida -");
+			notificaMudanca(evento);
+		}
 	}
 
 	public void teclaEsquerda02Digitada() {
-		// TODO Auto-generated method stub
-
+		if(this.estado == ESTADO_INICIAL){
+			MaquinaDeEstadosEvent evento = new MaquinaDeEstadosEvent();
+			evento.setNovaTela("- Opcao Invalida -");
+			notificaMudanca(evento);
+		}
 	}
 
 	public void teclaEsquerda03Digitada() {
-		// TODO Auto-generated method stub
-
+		if(this.estado == ESTADO_INICIAL){
+			MaquinaDeEstadosEvent evento = new MaquinaDeEstadosEvent();
+			evento.setNovaTela("- Opcao Invalida -");
+			notificaMudanca(evento);
+		}
 	}
 
 	public void teclaEsquerda04Digitada() {
-		// TODO Auto-generated method stub
-
+		if(this.estado == ESTADO_INICIAL){
+			MaquinaDeEstadosEvent evento = new MaquinaDeEstadosEvent();
+			evento.setNovaTela("- Opcao Invalida -");
+			notificaMudanca(evento);
+		}
 	}
 
 	public void teclaDireita01Digitada() {
-		// TODO Auto-generated method stub
-
+		if(this.estado == ESTADO_INICIAL){
+			MaquinaDeEstadosEvent evento = new MaquinaDeEstadosEvent();
+			evento.setNovaTela("- Opcao Invalida -");
+			notificaMudanca(evento);
+		}
 	}
 
 	public void teclaDireita02Digitada() {
-		// TODO Auto-generated method stub
-
+		if(this.estado == ESTADO_INICIAL){
+			MaquinaDeEstadosEvent evento = new MaquinaDeEstadosEvent();
+			evento.setNovaTela("- Opcao Invalida -");
+			notificaMudanca(evento);
+		}
 	}
 
 	public void teclaDireita03Digitada() {
-		// TODO Auto-generated method stub
-
+		if(this.estado == ESTADO_INICIAL){
+			MaquinaDeEstadosEvent evento = new MaquinaDeEstadosEvent();
+			evento.setNovaTela("- Opcao Invalida -");
+			notificaMudanca(evento);
+		}
 	}
 
 	public void teclaDireita04Digitada() {
-		// TODO Auto-generated method stub
-
+		if(this.estado == ESTADO_INICIAL){
+			MaquinaDeEstadosEvent evento = new MaquinaDeEstadosEvent();
+			evento.setNovaTela("- Opcao Invalida -");
+			notificaMudanca(evento);
+		}
 	}
 
 	public void codigoBarraLido(String codigo) {
-		// TODO Auto-generated method stub
-
+		if(this.estado == ESTADO_INICIAL){
+			MaquinaDeEstadosEvent evento = new MaquinaDeEstadosEvent();
+			evento.setNovaTela("- Opcao Invalida -");
+			notificaMudanca(evento);
+		}
 	}
 
 	public void envelopeInserido(Envelope informacoes) {

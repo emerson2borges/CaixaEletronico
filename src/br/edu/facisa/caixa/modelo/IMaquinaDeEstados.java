@@ -1,5 +1,7 @@
 package br.edu.facisa.caixa.modelo;
 
+import br.edu.facisa.caixa.interfac.MaquinaDeEstadosListener;
+
 public interface IMaquinaDeEstados {
 
 	/* Métodos observer */

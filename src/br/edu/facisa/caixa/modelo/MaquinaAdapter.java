@@ -3,6 +3,9 @@ package br.edu.facisa.caixa.modelo;
 import java.util.LinkedList;
 import java.util.List;
 
+import br.edu.facisa.caixa.interfac.IMaquinaDeEstados;
+import br.edu.facisa.caixa.interfac.MaquinaDeEstadosListener;
+
 public abstract class MaquinaAdapter implements IMaquinaDeEstados {
 
 	protected static final String ESTADO_INICIAL = "Inicial";

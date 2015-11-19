@@ -8,8 +8,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import br.edu.facisa.caixa.factory.MaquinaDeEstadosFactory;
 import br.edu.facisa.caixa.modelo.DadosFacade;
-import br.edu.facisa.caixa.modelo.MaquinaDeEstadosFactory;
 
 public class DadosFacadeTeste {
 

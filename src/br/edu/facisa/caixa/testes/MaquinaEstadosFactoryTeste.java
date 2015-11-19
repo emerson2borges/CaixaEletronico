@@ -8,7 +8,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import br.edu.facisa.caixa.modelo.MaquinaDeEstadosFactory;
+import br.edu.facisa.caixa.factory.MaquinaDeEstadosFactory;
 
 public class MaquinaEstadosFactoryTeste {
 

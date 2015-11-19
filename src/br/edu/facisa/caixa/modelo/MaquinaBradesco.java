@@ -1,5 +1,8 @@
 package br.edu.facisa.caixa.modelo;
 
+import br.edu.facisa.caixa.interfac.IMaquinaDeEstados;
+import br.edu.facisa.caixa.interfac.MaquinaDeEstadosListener;
+
 public class MaquinaBradesco implements IMaquinaDeEstados {
 
 	public boolean adicionaMaquinaDeEstadosListener(

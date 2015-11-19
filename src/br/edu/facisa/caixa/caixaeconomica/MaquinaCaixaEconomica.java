@@ -166,7 +166,6 @@ public class MaquinaCaixaEconomica extends MaquinaAdapter {
 				notificaMudanca(evento);
 			}
 		}else if(this.estado == DIGITANDO_SENHA){
-			System.out.println(contaAtual.getSenha());
 			if(contaAtual.getSenha() == senhaDigitada){
 				this.estado = DIGITANDO_OPCAO;
 				MaquinaDeEstadosEvent evento = new MaquinaDeEstadosEvent();

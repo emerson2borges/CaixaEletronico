@@ -8,7 +8,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import br.edu.facisa.caixa.modelo.IMaquinaDeEstados;
+import br.edu.facisa.caixa.interfac.IMaquinaDeEstados;
 import br.edu.facisa.caixa.modelo.MaquinaAdapter;
 
 public class MaquinaAdapterTeste {

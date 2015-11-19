@@ -4,6 +4,11 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
+import br.edu.facisa.caixa.caixaeconomica.MaquinaCaixaEconomica;
+import br.edu.facisa.caixa.factory.MaquinaDeEstadosFactory;
+import br.edu.facisa.caixa.interfac.IMaquinaDeEstados;
+import br.edu.facisa.caixa.interfac.MaquinaDeEstadosListener;
+
 public class CaixaDeBanco implements MaquinaDeEstadosListener {
 
 	private IMaquinaDeEstados maquinaPadrao;

@@ -3,6 +3,8 @@ package br.edu.facisa.caixa.modelo;
 import java.util.LinkedList;
 import java.util.List;
 
+import br.edu.facisa.caixa.interfac.MaquinaDeEstadosListener;
+
 public class MaquinaBancoBrasil extends MaquinaAdapter {
 
 	private int contaDigitada;
