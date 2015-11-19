@@ -1,4 +1,10 @@
-package br.edu.facisa.caixa.modelo;
+package br.edu.facisa.caixa.caixaeconomica;
+
+import br.edu.facisa.caixa.interfac.GerenciaContaSingleton;
+import br.edu.facisa.caixa.modelo.Conta;
+import br.edu.facisa.caixa.modelo.Envelope;
+import br.edu.facisa.caixa.modelo.MaquinaAdapter;
+import br.edu.facisa.caixa.modelo.MaquinaDeEstadosEvent;
 
 
 
@@ -6,7 +12,10 @@ public class MaquinaCaixaEconomica extends MaquinaAdapter {
 	private int contaDigitada;
 	private int senhaDigitada;
 	private String asteriscos = "";
-	private int tentativa = 0;
+	private String opcao;
+	private Conta contaAtual;
+	private GerenciaContaSingleton gerenciaConta;
+	private int tentativa;
 	
 	private void processaConta(int i) {
 		this.contaDigitada *= 10;
@@ -137,41 +146,54 @@ public class MaquinaCaixaEconomica extends MaquinaAdapter {
 	@Override
 	public void teclaConfirmaDigitada() {
 		if(this.estado == DIGITANDO_CONTA){
-			if(this.contaDigitada == 1234){
+			contaAtual = GerenciaContaSingleton.getInstancia().getConta(contaDigitada);
+			if(contaAtual.getNumeroConta() == contaDigitada && tentativa < 3){
 				this.estado = DIGITANDO_SENHA;
 				MaquinaDeEstadosEvent evento = new MaquinaDeEstadosEvent();
 				evento.setNovaTela(" - Digite a senha ou digite CONFIRMA");
 				notificaMudanca(evento);
-			}else {
+			}else if(tentativa==3) {
+				MaquinaDeEstadosEvent evento = new MaquinaDeEstadosEvent();
+				evento.setNovaTela("- Conta Bloqueada -\n Procure a Agencia mais proxima!");
+				notificaMudanca(evento);
+			}else{
 				this.estado = DIGITANDO_CONTA;
 				MaquinaDeEstadosEvent evento = new MaquinaDeEstadosEvent();
-				evento.setNovaTela("Conta Invalida\n"+"Digite a conta novamente");
+				evento.setNovaTela(" - Conta Invalida -\n"+"Digite a conta novamente");
+				tentativa+=1;
+				this.contaAtual.setTentativa(tentativa);
 				this.contaDigitada = 0;
 				notificaMudanca(evento);
 			}
 		}else if(this.estado == DIGITANDO_SENHA){
-			if(this.senhaDigitada == 123){
-				this.estado = ESTADO_INICIAL;
+			System.out.println(contaAtual.getSenha());
+			if(contaAtual.getSenha() == senhaDigitada){
+				this.estado = DIGITANDO_OPCAO;
 				MaquinaDeEstadosEvent evento = new MaquinaDeEstadosEvent();
 				evento.setNovaTela("Escolha uma opção\n"
-						+"1 - Saldo    2 - Saque"
-						+ "3 - Credito");
+						+"A - Saldo    B - Saque\n"
+						+ "C - Creditos");
 				notificaMudanca(evento);
-			}else if(this.tentativa < 3){
+			}else if(this.contaAtual.getTentativa() < 3){
 				this.estado = DIGITANDO_SENHA;
 				MaquinaDeEstadosEvent evento = new MaquinaDeEstadosEvent();
 				evento.setNovaTela("Senha Invalida\n"+"Digite a senha novamente");
 				this.senhaDigitada = 0;
 				this.asteriscos="";
 				notificaMudanca(evento);
-				this.tentativa +=1;
+				this.contaAtual.setTentativa(contaAtual.getTentativa()+1);
 			}else{
 				MaquinaDeEstadosEvent evento = new MaquinaDeEstadosEvent();
 				evento.setTrocaMaquinaDeEstados("Caixa Padrao");
 				this.contaDigitada = 0;
 				this.senhaDigitada = 0;
 				this.asteriscos = "";
-				this.tentativa = 3;
+				notificaMudanca(evento);
+			}
+		}else if(this.estado == DIGITANDO_OPCAO){
+			if(this.opcao.equals("A")){
+				MaquinaDeEstadosEvent evento = new MaquinaDeEstadosEvent();
+				evento.setNovaTela("Saldo: R$"+ contaAtual.getSaldo());
 				notificaMudanca(evento);
 			}
 		}
@@ -196,14 +218,21 @@ public class MaquinaCaixaEconomica extends MaquinaAdapter {
 			evento.setTrocaMaquinaDeEstados("Caixa Padrao");
 			notificaMudanca(evento);
 		}else if(this.estado == DIGITANDO_SENHA){
-			
+			MaquinaDeEstadosEvent evento = new MaquinaDeEstadosEvent();
+			evento.setTrocaMaquinaDeEstados("Caixa Padrao");
+			notificaMudanca(evento);
 		}
 		
 	}
 
 	@Override
 	public void teclaEsquerda01Digitada() {
-		// TODO Auto-generated method stub
+		if(this.estado == DIGITANDO_OPCAO){
+			MaquinaDeEstadosEvent evento = new MaquinaDeEstadosEvent();
+			evento.setNovaTela("Digite confirma para acessar esta opção");
+			opcao = "A";
+			notificaMudanca(evento);
+		}
 		
 	}
 

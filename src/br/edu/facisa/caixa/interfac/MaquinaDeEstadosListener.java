@@ -1,4 +1,6 @@
-package br.edu.facisa.caixa.modelo;
+package br.edu.facisa.caixa.interfac;
+
+import br.edu.facisa.caixa.modelo.MaquinaDeEstadosEvent;
 
 public interface MaquinaDeEstadosListener {
 

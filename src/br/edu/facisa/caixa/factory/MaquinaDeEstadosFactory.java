@@ -1,4 +1,10 @@
-package br.edu.facisa.caixa.modelo;
+package br.edu.facisa.caixa.factory;
+
+import br.edu.facisa.caixa.caixaeconomica.MaquinaCaixaEconomica;
+import br.edu.facisa.caixa.interfac.IMaquinaDeEstados;
+import br.edu.facisa.caixa.modelo.MaquinaBancoBrasil;
+import br.edu.facisa.caixa.modelo.MaquinaPadrao;
+import br.edu.facisa.caixa.modelo.MaquinaSantander;
 
 public class MaquinaDeEstadosFactory {
 
