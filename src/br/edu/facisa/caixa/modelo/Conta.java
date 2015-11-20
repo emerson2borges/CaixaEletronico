@@ -5,6 +5,7 @@ public class Conta {
 	private String banco;
 	private int numeroConta;
 	private int senha;
+	private String senhaS;
 	private double saldo;
 	private int tentativa;
 	
@@ -16,6 +17,14 @@ public class Conta {
 		this.setBanco(banco);
 		this.setNumeroConta(numeroConta);
 		this.setSenha(Senha);
+		this.setSaldo(saldo);
+		this.setTentativa(0);
+	}
+	
+	public Conta(String banco, int numeroConta, String senha, double saldo ){
+		this.setBanco(banco);
+		this.setNumeroConta(numeroConta);
+		this.setSenhaS(senha);
 		this.setSaldo(saldo);
 		this.setTentativa(0);
 	}
@@ -32,6 +41,14 @@ public class Conta {
 	public void setNumeroConta(int numeroConta) {
 		this.numeroConta = numeroConta;
 	}
+	
+	public String getSenhaS() {
+		return senhaS;
+	}
+	public void setSenhaS(String senha) {
+		this.senhaS = senha;
+	}
+	
 	public int getSenha() {
 		return senha;
 	}

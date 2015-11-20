@@ -2,7 +2,7 @@ package br.edu.facisa.caixa.caixaeconomica;
 
 import br.edu.facisa.caixa.modelo.Conta;
 import br.edu.facisa.caixa.modelo.Envelope;
-import br.edu.facisa.caixa.modelo.GerenciaContaSingleton;
+import br.edu.facisa.caixa.interfac.GerenciaContaSingleton;
 import br.edu.facisa.caixa.modelo.MaquinaAdapter;
 import br.edu.facisa.caixa.modelo.MaquinaDeEstadosEvent;
 
