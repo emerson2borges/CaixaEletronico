@@ -53,6 +53,11 @@ public class CaixaDeBanco implements MaquinaDeEstadosListener {
 				this.maquinaAtual = new MaquinaCaixaEconomica();
 				this.maquinaAtual.adicionaMaquinaDeEstadosListener(this);
 				this.maquinaAtual.inicia();	
+			case "Caixa Padrao":
+				this.maquinaAtual.para();
+				this.maquinaAtual = new MaquinaPadrao();
+				this.maquinaAtual.adicionaMaquinaDeEstadosListener(this);
+				this.maquinaAtual.inicia();	
 			}
 		}
 		this.exibeTeclado();
@@ -86,14 +91,18 @@ public class CaixaDeBanco implements MaquinaDeEstadosListener {
 			this.maquinaAtual.teclaNum09Digitada();
 		} else if (resposta.equals("0")) {
 			this.maquinaAtual.teclaNum00Digitada();
-		} else if (resposta.equals("CONFIRMA")) {
-			this.maquinaAtual.teclaConfirmaDigitada();
-		}else if(resposta.equals("A")){
+		}else if(resposta.toUpperCase().equals("A")){
 			this.maquinaAtual.teclaEsquerda01Digitada();
-		}else if(resposta.equals("B")){
+		}else if(resposta.toUpperCase().equals("B")){
 			this.maquinaAtual.teclaEsquerda02Digitada();
-		}else if(resposta.equals("CANCELA")){
+		}else if(resposta.toUpperCase().equals("C")){
+			this.maquinaAtual.teclaEsquerda03Digitada();
+		}else if (resposta.toUpperCase().equals("CONFIRMA")) {
+			this.maquinaAtual.teclaConfirmaDigitada();
+		}else if(resposta.toUpperCase().equals("CANCELA")){
 			this.maquinaAtual.teclaCancelarDigitada();
+		}else if(resposta.toUpperCase().equals("CORRIGE")){
+			this.maquinaAtual.teclaCorrigeDigitada();
 		}
 	}
 }

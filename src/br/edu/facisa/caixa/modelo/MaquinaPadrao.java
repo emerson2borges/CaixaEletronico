@@ -1,7 +1,5 @@
 package br.edu.facisa.caixa.modelo;
 
-//import br.edu.facisa.caixa.dao.GenericDao;
-
 public class MaquinaPadrao extends MaquinaAdapter {
 
 	private static final String PARADO = null;

@@ -1,8 +1,8 @@
 package br.edu.facisa.caixa.caixaeconomica;
 
-import br.edu.facisa.caixa.interfac.GerenciaContaSingleton;
 import br.edu.facisa.caixa.modelo.Conta;
 import br.edu.facisa.caixa.modelo.Envelope;
+import br.edu.facisa.caixa.modelo.GerenciaContaSingleton;
 import br.edu.facisa.caixa.modelo.MaquinaAdapter;
 import br.edu.facisa.caixa.modelo.MaquinaDeEstadosEvent;
 
@@ -16,13 +16,15 @@ public class MaquinaCaixaEconomica extends MaquinaAdapter {
 	private Conta contaAtual;
 	private GerenciaContaSingleton gerenciaConta;
 	private int tentativa;
+	private int valorDigitado;
+	private Conta contaTransferencia;
 	
 	private void processaConta(int i) {
-		this.contaDigitada *= 10;
-		this.contaDigitada += i;
-		MaquinaDeEstadosEvent evento = new MaquinaDeEstadosEvent();
-		evento.setNovaTela(" - Continue a digitar a conta ou digite CONFIRMA\n - Conta atual : " + this.contaDigitada);
-		notificaMudanca(evento);
+			this.contaDigitada *= 10;
+			this.contaDigitada += i;
+			MaquinaDeEstadosEvent evento = new MaquinaDeEstadosEvent();
+			evento.setNovaTela(" - Continue a digitar a conta ou digite CONFIRMA\n - Conta atual : " + this.contaDigitada);
+			notificaMudanca(evento);
 	}
 	
 	private void processaSenha(int i) {
@@ -31,6 +33,13 @@ public class MaquinaCaixaEconomica extends MaquinaAdapter {
 		this.asteriscos += "*";
 		MaquinaDeEstadosEvent evento = new MaquinaDeEstadosEvent();
 		evento.setNovaTela(" - Continue a digitar a senha ou digite CONFIRMA\n - Senha atual : " + asteriscos);
+		notificaMudanca(evento);
+	}
+	private void processaValor(int i){
+		this.valorDigitado*=10;
+		this.valorDigitado+=i;
+		MaquinaDeEstadosEvent evento = new MaquinaDeEstadosEvent();
+		evento.setNovaTela(" - Continue a digitar o valor ou digite CONFIRMA\n - Valor : R$" + this.valorDigitado);
 		notificaMudanca(evento);
 	}
 	
@@ -49,6 +58,8 @@ public class MaquinaCaixaEconomica extends MaquinaAdapter {
 		this.senhaDigitada = 0;
 		this.asteriscos = "";
 		this.contaDigitada = 0;
+		this.valorDigitado = 0;
+		this.tentativa = 0;
 		
 	}
 
@@ -58,6 +69,12 @@ public class MaquinaCaixaEconomica extends MaquinaAdapter {
 			processaConta(1);
 		}else if(this.estado == DIGITANDO_SENHA){
 			processaSenha(1);
+		}else if(this.estado == SACANDO){
+			processaValor(1);
+		}else if(this.estado == TRANSFERENCIA){
+			processaConta(1);
+		}else if(this.estado == DIGITANDO_VALOR){
+			processaValor(1);
 		}
 	}
 
@@ -67,6 +84,12 @@ public class MaquinaCaixaEconomica extends MaquinaAdapter {
 			processaConta(2);
 		}else if(this.estado == DIGITANDO_SENHA){
 			processaSenha(2);
+		}else if(this.estado == SACANDO){
+			processaValor(2);
+		}else if(this.estado == TRANSFERENCIA){
+			processaConta(2);
+		}else if(this.estado == DIGITANDO_VALOR){
+			processaValor(2);
 		}
 	}
 
@@ -76,6 +99,12 @@ public class MaquinaCaixaEconomica extends MaquinaAdapter {
 			processaConta(3);
 		}else if(this.estado == DIGITANDO_SENHA){
 			processaSenha(3);
+		}else if(this.estado == SACANDO){
+			processaValor(3);
+		}else if(this.estado == TRANSFERENCIA){
+			processaConta(3);
+		}else if(this.estado == DIGITANDO_VALOR){
+			processaValor(3);
 		}
 	}
 
@@ -85,6 +114,12 @@ public class MaquinaCaixaEconomica extends MaquinaAdapter {
 			processaConta(4);
 		}else if(this.estado == DIGITANDO_SENHA){
 			processaSenha(4);
+		}else if(this.estado == SACANDO){
+			processaValor(4);
+		}else if(this.estado == TRANSFERENCIA){
+			processaConta(4);
+		}else if(this.estado == DIGITANDO_VALOR){
+			processaValor(4);
 		}
 	}
 
@@ -94,7 +129,13 @@ public class MaquinaCaixaEconomica extends MaquinaAdapter {
 			processaConta(5);
 		}else if(this.estado == DIGITANDO_SENHA){
 			processaSenha(5);
-		}		
+		}else if(this.estado == SACANDO){
+			processaValor(5);
+		}else if(this.estado == TRANSFERENCIA){
+			processaConta(5);
+		}else if(this.estado == DIGITANDO_VALOR){
+			processaValor(5);
+		}
 	}
 
 	@Override
@@ -103,8 +144,13 @@ public class MaquinaCaixaEconomica extends MaquinaAdapter {
 			processaConta(6);
 		}else if(this.estado == DIGITANDO_SENHA){
 			processaSenha(6);
+		}else if(this.estado == SACANDO){
+			processaValor(6);
+		}else if(this.estado == TRANSFERENCIA){
+			processaConta(6);
+		}else if(this.estado == DIGITANDO_VALOR){
+			processaValor(6);
 		}
-		
 	}
 
 	@Override
@@ -113,6 +159,12 @@ public class MaquinaCaixaEconomica extends MaquinaAdapter {
 			processaConta(7);
 		}else if(this.estado == DIGITANDO_SENHA){
 			processaSenha(7);
+		}else if(this.estado == SACANDO){
+			processaValor(7);
+		}else if(this.estado == TRANSFERENCIA){
+			processaConta(7);
+		}else if(this.estado == DIGITANDO_VALOR){
+			processaValor(7);
 		}
 	}
 
@@ -122,6 +174,12 @@ public class MaquinaCaixaEconomica extends MaquinaAdapter {
 			processaConta(8);
 		}else if(this.estado == DIGITANDO_SENHA){
 			processaSenha(8);
+		}else if(this.estado == SACANDO){
+			processaValor(8);
+		}else if(this.estado == TRANSFERENCIA){
+			processaConta(8);
+		}else if(this.estado == DIGITANDO_VALOR){
+			processaValor(8);
 		}
 	}
 
@@ -131,6 +189,12 @@ public class MaquinaCaixaEconomica extends MaquinaAdapter {
 			processaConta(9);
 		}else if(this.estado == DIGITANDO_SENHA){
 			processaSenha(9);
+		}else if(this.estado == SACANDO){
+			processaValor(9);
+		}else if(this.estado == TRANSFERENCIA){
+			processaConta(9);
+		}else if(this.estado == DIGITANDO_VALOR){
+			processaValor(9);
 		}
 	}
 
@@ -140,6 +204,12 @@ public class MaquinaCaixaEconomica extends MaquinaAdapter {
 			processaConta(0);
 		}else if(this.estado == DIGITANDO_SENHA){
 			processaSenha(0);
+		}else if(this.estado == SACANDO){
+			processaValor(0);
+		}else if(this.estado == TRANSFERENCIA){
+			processaConta(0);
+		}else if(this.estado == DIGITANDO_VALOR){
+			processaValor(0);
 		}
 	}
 
@@ -147,7 +217,7 @@ public class MaquinaCaixaEconomica extends MaquinaAdapter {
 	public void teclaConfirmaDigitada() {
 		if(this.estado == DIGITANDO_CONTA){
 			contaAtual = GerenciaContaSingleton.getInstancia().getConta(contaDigitada);
-			if(contaAtual.getNumeroConta() == contaDigitada && tentativa < 3){
+			if(contaAtual.getNumeroConta() == contaDigitada && contaAtual.getBanco().equals("Caixa Economica") && tentativa < 3){
 				this.estado = DIGITANDO_SENHA;
 				MaquinaDeEstadosEvent evento = new MaquinaDeEstadosEvent();
 				evento.setNovaTela(" - Digite a senha ou digite CONFIRMA");
@@ -170,8 +240,9 @@ public class MaquinaCaixaEconomica extends MaquinaAdapter {
 				this.estado = DIGITANDO_OPCAO;
 				MaquinaDeEstadosEvent evento = new MaquinaDeEstadosEvent();
 				evento.setNovaTela("Escolha uma opção\n"
-						+"A - Saldo    B - Saque\n"
-						+ "C - Creditos");
+						+"A - SALDO\n"
+						+ "B - SAQUE\n"
+						+ "C - TRANSFERENCIA");
 				notificaMudanca(evento);
 			}else if(this.contaAtual.getTentativa() < 3){
 				this.estado = DIGITANDO_SENHA;
@@ -189,10 +260,37 @@ public class MaquinaCaixaEconomica extends MaquinaAdapter {
 				this.asteriscos = "";
 				notificaMudanca(evento);
 			}
-		}else if(this.estado == DIGITANDO_OPCAO){
-			if(this.opcao.equals("A")){
+		}else if(this.estado == VENDO_SALDO){
+			MaquinaDeEstadosEvent evento = new MaquinaDeEstadosEvent();
+			evento.setNovaTela("Saldo: R$"+ contaAtual.getSaldo()
+					+"\nDigite em cancela para finalizar a operação");
+			notificaMudanca(evento);
+		}else if(this.estado == SACANDO){
+			if(valorDigitado <= contaAtual.getSaldo()){
+				contaAtual.setSaldo(contaAtual.getSaldo()-valorDigitado);
 				MaquinaDeEstadosEvent evento = new MaquinaDeEstadosEvent();
-				evento.setNovaTela("Saldo: R$"+ contaAtual.getSaldo());
+				evento.setNovaTela("-Saque Realizado-\n"
+						+ "seu novo saldo é:" + contaAtual.getSaldo());
+				notificaMudanca(evento);
+			}
+		}else if(this.estado == TRANSFERENCIA){
+			if(GerenciaContaSingleton.getInstancia().getConta(contaDigitada).getNumeroConta() == contaDigitada){
+				this.estado = DIGITANDO_VALOR;
+				this.contaTransferencia = GerenciaContaSingleton.getInstancia().getConta(contaDigitada);
+				MaquinaDeEstadosEvent evento = new MaquinaDeEstadosEvent();
+				evento.setNovaTela(" - Digite o valor -");
+				notificaMudanca(evento);
+			}
+		}else if(this.estado == DIGITANDO_VALOR){
+			if(valorDigitado <= contaAtual.getSaldo()){
+				contaAtual.setSaldo(contaAtual.getSaldo()-valorDigitado);
+				contaTransferencia.setSaldo(contaTransferencia.getSaldo()+valorDigitado);
+				MaquinaDeEstadosEvent evento = new MaquinaDeEstadosEvent();
+				evento.setNovaTela("-Tranferencia Realizada-\n"
+						+ "conta: "+contaTransferencia.getNumeroConta()+
+						"Banco: "+contaTransferencia.getBanco()+
+						"\nValor: R$"+valorDigitado+
+						"\n\nDigite Cancela para finalizar");
 				notificaMudanca(evento);
 			}
 		}
@@ -206,7 +304,15 @@ public class MaquinaCaixaEconomica extends MaquinaAdapter {
 			this.contaDigitada = 0;
 			notificaMudanca(evento);
 		}else if(this.estado == DIGITANDO_SENHA){
+			MaquinaDeEstadosEvent evento = new MaquinaDeEstadosEvent();
+			evento.setNovaTela("-Digite a senha-");
 			this.senhaDigitada = 0;
+			notificaMudanca(evento);
+		}else if(this.estado == SACANDO){
+			MaquinaDeEstadosEvent evento = new MaquinaDeEstadosEvent();
+			evento.setNovaTela("-Digite o valor-");
+			this.valorDigitado = 0;
+			notificaMudanca(evento);
 		}
 	}
 
@@ -220,6 +326,18 @@ public class MaquinaCaixaEconomica extends MaquinaAdapter {
 			MaquinaDeEstadosEvent evento = new MaquinaDeEstadosEvent();
 			evento.setTrocaMaquinaDeEstados("Caixa Padrao");
 			notificaMudanca(evento);
+		}else if(this.estado == VENDO_SALDO){
+			MaquinaDeEstadosEvent evento = new MaquinaDeEstadosEvent();
+			evento.setTrocaMaquinaDeEstados("Caixa Padrao");
+			notificaMudanca(evento);
+		}else if(this.estado == SACANDO){
+			MaquinaDeEstadosEvent evento = new MaquinaDeEstadosEvent();
+			evento.setTrocaMaquinaDeEstados("Caixa Padrao");
+			notificaMudanca(evento);
+		}else if(this.estado == DIGITANDO_VALOR){
+			MaquinaDeEstadosEvent evento = new MaquinaDeEstadosEvent();
+			evento.setTrocaMaquinaDeEstados("Caixa Padrao");
+			notificaMudanca(evento);
 		}
 		
 	}
@@ -227,6 +345,7 @@ public class MaquinaCaixaEconomica extends MaquinaAdapter {
 	@Override
 	public void teclaEsquerda01Digitada() {
 		if(this.estado == DIGITANDO_OPCAO){
+			this.estado = VENDO_SALDO;
 			MaquinaDeEstadosEvent evento = new MaquinaDeEstadosEvent();
 			evento.setNovaTela("Digite confirma para acessar esta opção");
 			opcao = "A";
@@ -237,14 +356,23 @@ public class MaquinaCaixaEconomica extends MaquinaAdapter {
 
 	@Override
 	public void teclaEsquerda02Digitada() {
-		// TODO Auto-generated method stub
-		
+		if(this.estado == DIGITANDO_OPCAO){
+			this.estado = SACANDO;
+			MaquinaDeEstadosEvent evento = new MaquinaDeEstadosEvent();
+			evento.setNovaTela("-Informe o valor de saque-");
+			notificaMudanca(evento);
+		}
 	}
 
 	@Override
 	public void teclaEsquerda03Digitada() {
-		// TODO Auto-generated method stub
-		
+		if(this.estado == DIGITANDO_OPCAO){
+			this.estado = TRANSFERENCIA;
+			MaquinaDeEstadosEvent evento = new MaquinaDeEstadosEvent();
+			evento.setNovaTela("-informe a conta para a transferencia-");
+			contaDigitada=0;
+			notificaMudanca(evento);
+		}
 	}
 
 	@Override
@@ -255,7 +383,6 @@ public class MaquinaCaixaEconomica extends MaquinaAdapter {
 
 	@Override
 	public void teclaDireita01Digitada() {
-		// TODO Auto-generated method stub
 		
 	}
 
