@@ -64,7 +64,13 @@ public class CaixaDeBanco implements MaquinaDeEstadosListener {
 	}
 
 	private void exibeTeclado() {
-		System.out.println(" - DIGITE E PRESSIONE ENTER: 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, A, B, C, D, E, F, G, H, CONFIRMA, CANCELA, CORRIGE");
+		System.out.println(" - DIGITE E PRESSIONE ENTER:\n"
+				+ "	1, 2, 3\n"
+				+ "	4, 5, 6\n"
+				+ "	7, 8, 9\n"
+				+ "	   0   \n"
+				+ "A, B, C, D, E, F, G, H\n"
+				+ "CONFIRMA, CANCELA, CORRIGE\n");
 		Scanner sc = new Scanner(System.in);
 		String resposta = sc.nextLine();
 		processaInteracao(resposta);

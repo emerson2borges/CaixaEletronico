@@ -4,7 +4,6 @@ import java.util.LinkedList;
 import java.util.List;
 import br.edu.facisa.caixa.interfac.GerenciaContaBBSingleton;
 import br.edu.facisa.caixa.interfac.MaquinaDeEstadosListener;
-import br.edu.facisa.caixa.interfac.GerenciaContaSingleton;
 import br.edu.facisa.caixa.modelo.Conta;
 import br.edu.facisa.caixa.modelo.Envelope;
 import br.edu.facisa.caixa.modelo.MaquinaAdapter;
@@ -20,7 +19,7 @@ public class MaquinaBancoBrasil extends MaquinaAdapter {
 	private String asteriscos = "";
 	private int opcao = 0;
 	private Conta contaAtual;
-	private GerenciaContaSingleton gerenciaConta;
+	private GerenciaContaBBSingleton gerenciaConta;
 	private int tentativa;
 	private Conta contaTransferencia;
 
@@ -70,15 +69,15 @@ public class MaquinaBancoBrasil extends MaquinaAdapter {
 		this.senhaDigitada += i;
 		this.asteriscos += "*";
 		MaquinaDeEstadosEvent evento = new MaquinaDeEstadosEvent();
-		evento.setNovaTela("Digite 1 para q w e"
-						 + "Digite 2 para r t y"
-						 + "Digite 3 para u i o"
-						 + "Digite 4 para p a s"
-						 + "Digite 5 para d f g"
-						 + "Digite 6 para h j k"
-						 + "Digite 7 para k l z"
-						 + "Digite 8 para x c v"
-						 + "digite 9 para b n m"
+		evento.setNovaTela("Digite 1 para q w e\n"
+						 + "Digite 2 para r t y\n"
+						 + "Digite 3 para u i o\n"
+						 + "Digite 4 para p a s\n"
+						 + "Digite 5 para d f g\n"
+						 + "Digite 6 para h j k\n"
+						 + "Digite 7 para k l z\n"
+						 + "Digite 8 para x c v\n"
+						 + "digite 9 para b n m\n"
 						 + " - Continue a digitar a senha ou digite CONFIRMA\n - Senha atual: " + asteriscos);
 		notificaMudanca(evento);
 	}
@@ -225,8 +224,8 @@ public class MaquinaBancoBrasil extends MaquinaAdapter {
 			if (contaAtual.getNumeroConta() == contaDigitada && tentativa < TOTAL_TENTATIVAS) {
 				this.estado = DIGITANDO_OPCAO;
 				MaquinaDeEstadosEvent evento = new MaquinaDeEstadosEvent();
-				evento.setNovaTela(" - Escolha uma OPCAO\n" + "A) Saldo\nB) Saque\nC)Transferência");
-				opcao = 1;
+				evento.setNovaTela(" - Escolha uma OPCAO\n" + "A) Saldo\nB) Saque\nC) Transferência");
+				//opcao = 1;
 				notificaMudanca(evento);
 			} else if (tentativa == 3) {
 				MaquinaDeEstadosEvent evento = new MaquinaDeEstadosEvent();
@@ -268,7 +267,7 @@ public class MaquinaBancoBrasil extends MaquinaAdapter {
 			if (contaAtual.getSenha() == senhaDigitada){
 				this.estado = SACANDO;
 				MaquinaDeEstadosEvent evento = new MaquinaDeEstadosEvent();
-				evento.setNovaTela("SAQUE:\n" + "Seu saldo atual: " + contaAtual.getSaldo() + "\nDigite o valor a sacar e digite CONFIRMA: ");
+				evento.setNovaTela("SAQUE:\n" + "Seu saldo atual: " + contaAtual.getSaldo() + "\nDigite o valor a ser sacado e digite CONFIRMA: ");
 				notificaMudanca(evento);
 				
 				if(contaAtual.getSaldo() >= valorDigitado){
@@ -301,18 +300,31 @@ public class MaquinaBancoBrasil extends MaquinaAdapter {
 		} else if (this.estado == DIGITANDO_SENHA && opcao == 3){
 			if (contaAtual.getSenha() == senhaDigitada){
 				this.estado = TRANSFERENCIA;
-				if(GerenciaContaSingleton.getInstancia().getConta(contaDigitada).getNumeroConta() == contaDigitada){
+				MaquinaDeEstadosEvent evento = new MaquinaDeEstadosEvent();
+				evento.setNovaTela("TRANSFERÊNCIA:\n" + "Seu saldo atual: " + contaAtual.getSaldo() + "\nDigite o valor a ser transferido e digite CONFIRMA: ");
+				notificaMudanca(evento);
+				
+				if(GerenciaContaBBSingleton.getInstancia().getConta(contaDigitada).getNumeroConta() == contaDigitada){
 					this.estado = DIGITANDO_VALOR;
-					this.contaTransferencia = GerenciaContaSingleton.getInstancia().getConta(contaDigitada);
-					MaquinaDeEstadosEvent evento = new MaquinaDeEstadosEvent();
-					evento.setNovaTela(" - Digite o valor -");
-					notificaMudanca(evento);	
+					this.contaTransferencia = GerenciaContaBBSingleton.getInstancia().getConta(contaDigitada);
+					//evento.setNovaTela(" - Digite o valor a ser transferido e digite CONFIRMA:");
+					//notificaMudanca(evento);
+					if(contaAtual.getSaldo() >= valorDigitado){
+						contaAtual.setSaldo(contaAtual.getSaldo()-valorDigitado);
+						contaTransferencia.setSaldo(contaTransferencia.getSaldo()+valorDigitado);
+						evento.setNovaTela("-Tranferencia Realizada-\n"
+								         + "Conta: " + contaTransferencia.getNumeroConta()
+								         + "\nBanco: " + contaTransferencia.getBanco()
+								         + "\nValor: R$" + valorDigitado
+								         + "\nDigite CANCELA para finalizar");
+						notificaMudanca(evento);
+					}
 				} else{
 					this.estado = DIGITANDO_OPCAO;
-					MaquinaDeEstadosEvent evento = new MaquinaDeEstadosEvent();
 					evento.setNovaTela("TRANSFERêNCIA:\n Saldo insuficiente para realizar a transferência. Digite CONFIRMA");
 					notificaMudanca(evento);
 				}
+				this.estado = TRANSFERENCIA;
 			} else if(this.contaAtual.getTentativa() < TOTAL_TENTATIVAS){
 				this.estado = DIGITANDO_SENHA;
 				MaquinaDeEstadosEvent evento = new MaquinaDeEstadosEvent();
@@ -353,6 +365,11 @@ public class MaquinaBancoBrasil extends MaquinaAdapter {
 			evento.setNovaTela(" - Digite o valor");
 			this.valorDigitado = 0;
 			notificaMudanca(evento);
+		} else if(this.estado == DIGITANDO_VALOR){
+			MaquinaDeEstadosEvent evento = new MaquinaDeEstadosEvent();
+			evento.setNovaTela(" - Digite o valor");
+			this.valorDigitado = 0;
+			notificaMudanca(evento);
 		}
 
 	}
@@ -380,6 +397,13 @@ public class MaquinaBancoBrasil extends MaquinaAdapter {
 			this.asteriscos = "";
 			notificaMudanca(evento);
 		} else if (this.estado == DIGITANDO_CONTA) {
+			this.estado = DIGITANDO_OPCAO;
+			MaquinaDeEstadosEvent evento = new MaquinaDeEstadosEvent();
+			evento.setNovaTela(" - Escolha uma OPCAO\n" + "A) Saldo\nB) Saque\nC) Transferência");
+			this.senhaDigitada = 0;
+			this.asteriscos = "";
+			notificaMudanca(evento);
+		}else if (this.estado == (DIGITANDO_VALOR)) {
 			this.estado = DIGITANDO_OPCAO;
 			MaquinaDeEstadosEvent evento = new MaquinaDeEstadosEvent();
 			evento.setNovaTela(" - Escolha uma OPCAO\n" + "A) Saldo\nB) Saque\nC) Transferência");
@@ -426,7 +450,7 @@ public class MaquinaBancoBrasil extends MaquinaAdapter {
 						 + "Digite 6 para h j k\n"
 						 + "Digite 7 para k l z\n"
 						 + "Digite 8 para x c v\n"
-						 + "digite 9 para b n m\n"
+						 + "Digite 9 para b n m\n"
 						 + " - Continue a digitar a senha ou digite CONFIRMA\n");
 		notificaMudanca(evento);
 
@@ -436,7 +460,16 @@ public class MaquinaBancoBrasil extends MaquinaAdapter {
 		opcao = 2;
 		this.estado = DIGITANDO_SENHA;
 		MaquinaDeEstadosEvent evento = new MaquinaDeEstadosEvent();
-		evento.setNovaTela(" - Digite a senha ou digite CONFIRMA\n");
+		evento.setNovaTela("Digite 1 para q w e\n"
+						 + "Digite 2 para r t y\n"
+						 + "Digite 3 para u i o\n"
+						 + "Digite 4 para p a s\n"
+						 + "Digite 5 para d f g\n"
+						 + "Digite 6 para h j k\n"
+						 + "Digite 7 para k l z\n"
+						 + "Digite 8 para x c v\n"
+						 + "Digite 9 para b n m\n"
+						 + " - Continue a digitar a senha ou digite CONFIRMA\n");
 		notificaMudanca(evento);
 
 	}
@@ -445,7 +478,16 @@ public class MaquinaBancoBrasil extends MaquinaAdapter {
 		opcao = 3;
 		this.estado = DIGITANDO_SENHA;
 		MaquinaDeEstadosEvent evento = new MaquinaDeEstadosEvent();
-		evento.setNovaTela(" - Digite a senha ou digite CONFIRMA\n");
+		evento.setNovaTela("Digite 1 para q w e\n"
+						 + "Digite 2 para r t y\n"
+						 + "Digite 3 para u i o\n"
+						 + "Digite 4 para p a s\n"
+						 + "Digite 5 para d f g\n"
+						 + "Digite 6 para h j k\n"
+						 + "Digite 7 para k l z\n"
+						 + "Digite 8 para x c v\n"
+						 + "Digite 9 para b n m\n"
+						 + " - Continue a digitar a senha ou digite CONFIRMA\n");
 		notificaMudanca(evento);
 
 	}
