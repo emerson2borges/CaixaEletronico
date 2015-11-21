@@ -64,7 +64,9 @@ public class CaixaDeBanco implements MaquinaDeEstadosListener {
 	}
 
 	private void exibeTeclado() {
-		System.out.println(" - DIGITE E PRESSIONE ENTER: 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, A, B, C, D, E, F, G, H, CONFIRMA, CANCELA, CORRIGE");
+		System.out.println("- DIGITE E PRESSIONE ENTER: \n    1 2 3 4  CONFIRMA\n "
+							+ "   5 6 7 8\n      9 0    CANCELA\n"
+							+ "    A B C D\n    E F G H  CORRIGE");
 		Scanner sc = new Scanner(System.in);
 		String resposta = sc.nextLine();
 		processaInteracao(resposta);
@@ -97,6 +99,16 @@ public class CaixaDeBanco implements MaquinaDeEstadosListener {
 			this.maquinaAtual.teclaEsquerda02Digitada();
 		}else if(resposta.toUpperCase().equals("C")){
 			this.maquinaAtual.teclaEsquerda03Digitada();
+		}else if(resposta.toUpperCase().equals("D")){
+			this.maquinaAtual.teclaEsquerda04Digitada();
+		}else if(resposta.toUpperCase().equals("E")){
+			this.maquinaAtual.teclaDireita01Digitada();
+		}else if(resposta.toUpperCase().equals("F")){
+			this.maquinaAtual.teclaDireita02Digitada();
+		}else if(resposta.toUpperCase().equals("G")){
+			this.maquinaAtual.teclaDireita03Digitada();
+		}else if(resposta.toUpperCase().equals("H")){
+			this.maquinaAtual.teclaDireita04Digitada();
 		}else if (resposta.toUpperCase().equals("CONFIRMA")) {
 			this.maquinaAtual.teclaConfirmaDigitada();
 		}else if(resposta.toUpperCase().equals("CANCELA")){

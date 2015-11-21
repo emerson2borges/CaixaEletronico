@@ -12,9 +12,9 @@ public class GerenciaContaSingleton {
 	private static List<Conta> contas = new ArrayList<Conta>();
 	
 	private GerenciaContaSingleton(){
-		conta = new Conta("Caixa Economica", 1234,123,1000);
+		conta = new Conta("Caixa Economica", 21, 1234, "Marcos Trajano", 123, 1000);
 		contas.add(conta);
-		conta = new Conta("Banco do Brasil", 123,1234,500);
+		conta = new Conta("Banco do Brasil", 31, 123, "Emerson Borges", 1234, 500);
 		contas.add(conta);
 	}
 	
