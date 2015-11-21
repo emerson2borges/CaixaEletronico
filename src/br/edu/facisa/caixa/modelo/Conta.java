@@ -23,6 +23,13 @@ public class Conta {
 		this.setTentativa(0);
 	}
 	
+	public Conta(String nome, int numeroConta, int senha, double saldo){
+		this.setBanco(banco);
+		this.setNumeroConta(numeroConta);
+		this.setSenha(senha);
+		this.setSaldo(saldo);
+	}
+	
 	public Conta(String banco, int numeroConta, String senha, double saldo ){
 		this.setBanco(banco);
 		this.setNumeroConta(numeroConta);
